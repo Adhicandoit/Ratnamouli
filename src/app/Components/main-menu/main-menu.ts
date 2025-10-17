@@ -109,7 +109,7 @@ export class MainMenu {
     const formData = this.feedbackForm.value;
     
     // CRITICAL: PASTE THE NEW DEPLOYED GOOGLE WEB APP URL HERE
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxk3KRqwtk3USHiHNpt8QDxork8rlCbhT6KgoYiBkiMpkNqsBMgrnp4Up6VczSV5Ujl1Q/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzjQyI8EmcbfDDft4MvaeXGF4bIicFxSttvKdh3_Irm47ySLYrX-njL0wUPGuyp2390PQ/exec';
     
     const body = this.convertJsonToFormData(formData);
 
