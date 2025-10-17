@@ -1,0 +1,155 @@
+<div class="min-h-screen bg-gray-100 p-4 sm:p-8 flex justify-center items-start pt-10 font-sans">
+      <form
+        class="feedback bg-white shadow-2xl rounded-xl p-6 sm:p-10 w-full max-w-4xl"
+        [formGroup]="feedbackForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <!-- Header and Welcome -->
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-blue-900 mb-6 border-b-4 border-blue-500 pb-2">
+          GUEST FEEDBACK FORM
+        </h1>
+
+        <p class="text-gray-600 mb-8 leading-relaxed">
+          Dear Guest, thank you for choosing <span class="font-semibold text-blue-800">Ratnamouli Palace</span>.
+          Getting things right for you is an important part of what we do, and we really
+          do like to hear your feedback about your stay with us.
+        </p>
+
+        <!-- Guest Details: Date, Guest Name, Room Number -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-sm pt-4 border-t border-gray-200">
+          <!-- 1. Date -->  
+          <label class="block">
+            <span class="text-gray-700 font-medium">Date: <span class="text-red-500">*</span></span>
+            <input type="date" formControlName="date" required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 transition duration-150 ease-in-out focus:border-blue-500 focus:ring-blue-500"
+            >
+            @if (feedbackForm.get('date')?.invalid && feedbackForm.get('date')?.touched) {
+              <p class="text-red-500 text-xs mt-1">Date is required.</p>
+            }
+          </label>
+          
+          <!-- 2. Guest Name -->
+          <label class="block">
+            <span class="text-gray-700 font-medium">Guest Name <span class="text-red-500">*</span></span>
+            <input type="text" formControlName="guestName" required placeholder="Your full name"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 transition duration-150 ease-in-out focus:border-blue-500 focus:ring-blue-500"
+            >
+            @if (feedbackForm.get('guestName')?.invalid && feedbackForm.get('guestName')?.touched) {
+              <p class="text-red-500 text-xs mt-1">Guest name is required.</p>
+            }
+          </label>
+          
+          <!-- 3. Room No -->
+          <label class="block">
+            <span class="text-gray-700 font-medium">Room No. <span class="text-red-500">*</span></span>
+            <input type="text" formControlName="roomNo" required placeholder="e.g., 405"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 transition duration-150 ease-in-out focus:border-blue-500 focus:ring-blue-500"
+            >
+            @if (feedbackForm.get('roomNo')?.invalid && feedbackForm.get('roomNo')?.touched) {
+              <p class="text-red-500 text-xs mt-1">Room number is required.</p>
+            }
+          </label>
+        </div>
+
+        <!-- Rating Table -->
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 pt-4 border-t border-gray-200">Rate Your Experience</h2>
+        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-lg mb-8">
+          <table class="rating-table min-w-[600px] divide-y divide-gray-200 sm:min-w-full">
+            <thead class="bg-blue-50">
+              <tr>
+                <th class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-blue-700 sm:px-6 w-1/3">Category</th>
+                @for (rating of ['Excellent', 'Good', 'Fair', 'Poor']; track rating) {
+                  <th class="px-2 py-3 text-center text-xs font-semibold uppercase tracking-wider text-blue-700 sm:px-6">{{ rating }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              @for (field of ratingFields; track field) {
+                <tr class="hover:bg-gray-50 transition duration-150">
+                  <td class="whitespace-nowrap px-3 py-3 text-sm font-medium text-gray-900 sm:px-6">{{ field }}</td>
+
+                  @for (ratingValue of ['Excellent', 'Good', 'Fair', 'Poor']; track ratingValue) {
+                    <td class="whitespace-nowrap px-2 py-3 text-center text-sm text-gray-500 sm:px-6">
+                      <label class="inline-flex items-center justify-center cursor-pointer">
+                        <input
+                          type="radio"
+                          [formControlName]="field"
+                          [value]="ratingValue"
+                          (click)="toggle(field, ratingValue)"
+                          class="custom-radio"
+                          required
+                        >
+                      </label>
+                    </td>
+                  }
+                </tr>
+                @if (feedbackForm.get(field)?.invalid && feedbackForm.get(field)?.touched) {
+                  <tr>
+                    <td colspan="5" class="px-3 py-1 text-red-500 text-xs sm:px-6">
+                      Please rate {{ field }}.
+                    </td>
+                  </tr>
+                }
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Comments and Signature -->
+        
+        <!-- Comments -->
+        <label class="block mb-8">
+          <span class="text-lg font-semibold text-gray-800">Any other comments?</span>
+          <textarea formControlName="comments" rows="3" placeholder="Share your suggestions or appreciation here..."
+            class="mt-2 block w-full rounded-lg border-gray-300 shadow-sm p-3 transition duration-150 ease-in-out focus:border-blue-500 focus:ring-blue-500"
+          ></textarea>
+        </label>
+        
+        <!-- Signature -->
+        <div class="grid grid-cols-1 mb-8">
+          <label class="block">
+            <span class="text-gray-700 font-medium">Signature:</span>
+            <input type="text" formControlName="signature" placeholder="Type your name as signature"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 transition duration-150 ease-in-out focus:border-blue-500 focus:ring-blue-500"
+            >
+          </label>
+        </div>
+
+
+        <!-- Submission Status Message -->
+        @if (submissionStatus() !== 'idle') {
+          <div role="status"
+            class="p-4 rounded-lg mb-6 text-center transition-all duration-300"
+            [class.bg-yellow-100]="submissionStatus() === 'loading'"
+            [class.text-yellow-800]="submissionStatus() === 'loading'"
+            [class.bg-green-100]="submissionStatus() === 'success'"
+            [class.text-green-800]="submissionStatus() === 'success'"
+            [class.bg-red-100]="submissionStatus() === 'error'"
+            [class.text-red-800]="submissionStatus() === 'error'"
+          >
+            <p class="font-semibold">{{ statusMessage() }}</p>
+            @if (submissionStatus() === 'loading') {
+                <div class="animate-spin inline-block w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full ml-2" role="status"></div>
+            }
+          </div>
+        }
+
+
+        <!-- Submit Button -->
+        <button type="submit"
+          [disabled]="feedbackForm.invalid || submissionStatus() === 'loading'"
+          class="w-full py-3 px-4 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+        >
+          @if (submissionStatus() === 'loading') {
+            Submitting...
+          } @else {
+            Submit Feedback
+          }
+        </button>
+
+        @if (feedbackForm.invalid && feedbackForm.touched) {
+          <p class="text-red-500 text-center mt-4">Please complete all required fields (marked with * or indicated above).</p>
+        }
+
+      </form>
+    </div>

@@ -1,0 +1,44 @@
+.rating-table td:first-child {
+        min-width: 120px; 
+      }
+      
+      /* Apply styles globally to ensure the radio buttons look consistent */
+      .rating-table th, .rating-table td {
+        padding: 0.5rem 0.5rem; /* Reduced padding for mobile */
+        text-align: center;
+      }
+      .rating-table thead th:first-child, .rating-table tbody td:first-child {
+        text-align: left;
+        padding-left: 1rem;
+      }
+
+      /* Custom Radio Button Styling */
+      .custom-radio {
+        /* Hides the default browser appearance */
+        appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 2px solid #3b82f6; /* Blue border */
+        border-radius: 50%;
+        margin: 0;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+      }
+      .custom-radio:checked {
+        background-color: #3b82f6; /* Blue background when checked */
+        border-color: #3b82f6;
+      }
+      .custom-radio:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.5rem;
+        height: 0.5rem;
+        background: white;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
