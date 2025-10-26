@@ -62,7 +62,7 @@ export class MainMenu {
     };
 
     // Add rating controls, marking them as required
-    
+    this.ratingFields.forEach(field => group[field] = ['']);
     this.feedbackForm = this.fb.group(group);
 
     // Effect to clear status after a success/error message
