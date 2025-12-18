@@ -62,7 +62,7 @@ export class MainMenu {
     };
 
     // Add rating controls, marking them as required
-    this.ratingFields.forEach(field => group[field] = ['', Validators.required]);
+    this.ratingFields.forEach(field => group[field] = ['']);
     this.feedbackForm = this.fb.group(group);
 
     // Effect to clear status after a success/error message
@@ -109,7 +109,7 @@ export class MainMenu {
     const formData = this.feedbackForm.value;
     
     // CRITICAL: PASTE THE NEW DEPLOYED GOOGLE WEB APP URL HERE
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzjQyI8EmcbfDDft4MvaeXGF4bIicFxSttvKdh3_Irm47ySLYrX-njL0wUPGuyp2390PQ/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbza9ktB3qbFekJ22mmBCWTEcMUlhh1iLYPVcqq-PdSjecMpVMWVuyCGVQzj0h8fJPE/exec';
     
     const body = this.convertJsonToFormData(formData);
 
