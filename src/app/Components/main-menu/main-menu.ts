@@ -106,8 +106,13 @@ export class MainMenu {
     }
 
     this.submissionStatus.set('loading');
-    const formData = this.feedbackForm.value;
-    
+    let formData: any = this.feedbackForm.value;
+
+    // remove any rating that somehow still contains 'Fair' (should not happen since the option is gone)
+    formData = Object.fromEntries(
+      Object.entries(formData).filter(([, value]) => value !== 'Fair')
+    );
+
     // CRITICAL: PASTE THE NEW DEPLOYED GOOGLE WEB APP URL HERE
     const scriptURL = 'https://script.google.com/macros/s/AKfycbza9ktB3qbFekJ22mmBCWTEcMUlhh1iLYPVcqq-PdSjecMpVMWVuyCGVQzj0h8fJPE/exec';
     
