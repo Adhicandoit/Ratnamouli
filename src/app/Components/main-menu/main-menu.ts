@@ -114,7 +114,7 @@ export class MainMenu {
     );
 
     // CRITICAL: PASTE THE NEW DEPLOYED GOOGLE WEB APP URL HERE
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbza9ktB3qbFekJ22mmBCWTEcMUlhh1iLYPVcqq-PdSjecMpVMWVuyCGVQzj0h8fJPE/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3pTxgJmSk1t1umVyghXqhGynVrp2_XdxlsUx3aaI6WG9On18h87WByX1pSu5e-GmRqg/exec';
     
     const body = this.convertJsonToFormData(formData);
 
